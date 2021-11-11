@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  mainnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hoijuwon-mainnet
+    container_name: hoijuwon-mainnet
+    env_file: .env
+    command: sh -c "npm run mainnet"
+    volumes:
+      - .:/usr/src/app/solidity
+
+  ropsten:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hoijuwon-ropsten
+    container_name: hoijuwon-ropsten
+    env_file: .env.ropsten
+    volumes:
+      - .:/usr/src/app/solidity
+    command: sh -c "npm run ropsten"
+
+  rinkeby:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hoijuwon-rinkeby
+    container_name: hoijuwon-rinkeby
+    env_file: .env.rinkeby
+    command: sh -c "npm run rinkeby"
+    volumes:
+      - .:/usr/src/app/solidity
