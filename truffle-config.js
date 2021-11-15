@@ -19,7 +19,7 @@ const providerApiKey = PROVIDER_API_KEY;
 // networks path
 const contracts_directory = "./src";
 
-const network = NETWORK || 'ropsten';
+const network = NETWORK || "ropsten";
 
 const contracts_build_directory = `./networks/${network}/build`;
 const migrations_directory = `./networks/${network}/migrations`;
@@ -78,7 +78,7 @@ module.exports = {
 
   compilers: {
     solc: {
-      version: "0.5.6",
+      version: "0.8.0",
       settings: {
         optimizer: {
           enabled: true,
