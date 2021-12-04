@@ -34,3 +34,4 @@ contract BuloNFT is ERC1155, BuloNFTStorage{
         return _tokenId;
     }
 }
+
