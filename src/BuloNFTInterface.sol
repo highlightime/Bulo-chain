@@ -1,6 +1,6 @@
 pragma solidity ^0.8.0;
 
-contract BuloNFTStorage {
+abstract contract BuloNFTStorage {
     address public owner;
 
     uint public tokenId;
@@ -16,11 +16,11 @@ contract BuloNFTStorage {
     mapping(address => GraveInfo) public graveInfoOf;
 }
 
-contract BuloNFTInterface is BuloNFTStorage {
+abstract contract BuloNFTInterface is BuloNFTStorage {
     function registerGrave(
         string calldata name,
         string calldata birth,
         string calldata visitLog,
         string calldata imgUrl
-    ) external returns (GraveInfo);
+    ) external virtual returns (GraveInfo memory);
 }
