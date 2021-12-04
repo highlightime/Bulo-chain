@@ -72,7 +72,7 @@ contract Vault is VaultInterface {
     }
 
     // TRIGGER for donation execution to donateTarget
-    function executeDonation(address vaultOwner_) public override returns (uint) {
+    function executeDonation(address vaultOwner_) payable public override returns (uint) {
         require(vaultInfoOf[vaultOwner_].balanceOf > 0);
 
         uint balanceBeforeTransfer = vaultInfoOf[vaultOwner_].balanceOf;
