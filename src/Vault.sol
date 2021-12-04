@@ -57,6 +57,7 @@ contract Vault is VaultInterface {
 
         vaultInfoOf[vaultOwner_].balanceOf += actualDonateAmount;
         vaultInfoOf[vaultOwner_].contributors.push(msg.sender);
+        totalAmount += actualDonateAmount;
 
         emit NewDonatation(vaultOwner_, msg.sender, amount);
 
