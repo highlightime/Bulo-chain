@@ -8,12 +8,15 @@ abstract contract VaultStorage {
 
     BuloNFTInterface public buloNft;
 
+    uint public donationBlockGap;
+
     address public admin;
 
     struct VaultInfo {
         bool isActive;
         uint balanceOf;
         uint tokenId;
+        uint lastDonationBlockNumber;
         address donateTarget;
         address[] contributors;
     }

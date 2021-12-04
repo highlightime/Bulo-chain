@@ -10,9 +10,10 @@ contract Vault is VaultInterface {
     event NewDonateTarget(address vaultOwner, address oldDonateTarget, address newDonateTarget);
     event Transfer(address src, address to, uint amount);
 
-    constructor(BuloNFTInterface buloNft_) {
+    constructor(BuloNFTInterface buloNft_, uint donationBlockGap_) {
         admin = msg.sender;
         buloNft = buloNft_;
+        donationBlockGap = donationBlockGap_;
     }
 
     receive () external payable {
@@ -62,20 +63,23 @@ contract Vault is VaultInterface {
         emit NewDonatation(vaultOwner_, msg.sender, amount);
         emit Transfer(msg.sender, address(this), amount);
 
-        // execute donation when new donatation occur
-        executeDonation(vaultOwner_);
+        // execute donation when donationBlockGap passed 
+        if (block.number - vaultInfoOf[vaultOwner_].lastDonationBlockNumber > donationBlockGap) {
+            executeDonation(vaultOwner_);
+        }
 
         return vaultInfoOf[vaultOwner_];
     }
 
     // TRIGGER for donation execution to donateTarget
-    function executeDonation(address vaultOwner_) external override returns (uint) {
+    function executeDonation(address vaultOwner_) public override returns (uint) {
         require(vaultInfoOf[vaultOwner_].balanceOf > 0);
 
         uint balanceBeforeTransfer = vaultInfoOf[vaultOwner_].balanceOf;
 
         transferOut(payable(vaultInfoOf[vaultOwner_].donateTarget), vaultInfoOf[vaultOwner_].balanceOf);
         vaultInfoOf[vaultOwner_].balanceOf = 0;
+        vaultInfoOf[vaultOwner_].lastDonationBlockNumber = block.number;
 
         emit Transfer(
             vaultOwner_,
