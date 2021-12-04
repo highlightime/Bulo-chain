@@ -23,4 +23,6 @@ abstract contract BuloNFTInterface is BuloNFTStorage {
         string calldata visitLog,
         string calldata imgUrl
     ) external virtual returns (GraveInfo memory);
+
+    function getMyTokenId(address owner) external virtual returns (uint);
 }
