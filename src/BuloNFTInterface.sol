@@ -3,9 +3,8 @@ pragma solidity ^0.8.0;
 
 contract BuloNFTStorage {
     struct GraveInfo {
-        string name;
-        string birth;
-        uint256 tokenId; 
+        string uri;
+        uint tokenId;
     }
 
     GraveInfo[] public Graves;
@@ -15,7 +14,7 @@ contract BuloNFTStorage {
 }
 
 abstract contract BuloNFTInterface is BuloNFTStorage {
-    function registerGrave(string calldata name,string calldata birth, string calldata _uri,uint _tokenId) external virtual;
+    function registerGrave(string calldata _uri) external virtual returns (uint256);
 
     function getMyTokenId(address owner)public view virtual returns(uint256);
 }

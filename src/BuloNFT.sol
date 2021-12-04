@@ -6,7 +6,10 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "./BuloNFTInterface.sol";
 
 contract BuloNFT is ERC1155, BuloNFTStorage{
-    event NewGrave(string _name, string _birth, uint256 _tokenId);
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    event NewGrave(string _uri, uint256 _tokenId);
 
     constructor(string memory initURI) ERC1155(initURI) {
         _setURI(initURI);
@@ -17,21 +20,23 @@ contract BuloNFT is ERC1155, BuloNFTStorage{
         _;
     }
 
-    function registerGrave(string calldata _name, string calldata _birth, string calldata _uri, uint256 _tokenId) external virtual {
-        GraveInfo memory myGrave=GraveInfo(_name, _birth, _tokenId);
+    function registerGrave(string calldata _uri) external virtual returns (uint256){
+        _tokenIds.increment();
+        uint256 id = _tokenIds.current();
+        GraveInfo memory myGrave=GraveInfo(_uri, id);
         Graves.push(myGrave);
-        graveToOwner[_tokenId] = msg.sender;
+        graveToOwner[id] = msg.sender;
         graveInfoOf[msg.sender]= myGrave;
-        mintGrave(msg.sender, _uri,_tokenId);
+        mintGrave(msg.sender, _uri, id);
 
-        emit NewGrave(_name, _birth, _tokenId);
+        emit NewGrave(_uri, id);
+
+        return id;
     }
 
-    function mintGrave(address owner, string memory metadataURI, uint _tokenId) internal returns (uint256){
-        _mint(owner, _tokenId, 1, "");
+    function mintGrave(address owner, string memory metadataURI, uint id) internal {
+        _mint(owner, id, 1, "");
         _setURI(metadataURI);
-
-        return _tokenId;
     }
 
     function getMyTokenId(address owner)public view returns(uint256){
