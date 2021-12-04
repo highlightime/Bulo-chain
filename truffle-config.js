@@ -1,15 +1,19 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
+const isCompiling = process.argv[2] === "compile";
+
 const { DEPLOYER_ACCOUNT, DEPLOYER_PRIVATE_KEY, PROVIDER_API_KEY, NETWORK } =
   process.env;
 
-if (
-  !DEPLOYER_ACCOUNT ||
-  !DEPLOYER_PRIVATE_KEY ||
-  !PROVIDER_API_KEY ||
-  !NETWORK
-) {
-  throw new Error("haha ! set .env and use docker, you CODE MONKEY🐒 !");
+if (!isCompiling) {
+  if (
+    !DEPLOYER_ACCOUNT ||
+    !DEPLOYER_PRIVATE_KEY ||
+    !PROVIDER_API_KEY ||
+    !NETWORK
+  ) {
+    throw new Error("haha ! set .env and use docker, you CODE MONKEY🐒 !");
+  }
 }
 
 // keys
@@ -19,7 +23,7 @@ const providerApiKey = PROVIDER_API_KEY;
 // networks path
 const contracts_directory = "./src";
 
-const network = NETWORK || 'ropsten';
+const network = NETWORK || "ropsten";
 
 const contracts_build_directory = `./networks/${network}/build`;
 const migrations_directory = `./networks/${network}/migrations`;
@@ -78,7 +82,7 @@ module.exports = {
 
   compilers: {
     solc: {
-      version: "0.5.6",
+      version: "0.8.0",
       settings: {
         optimizer: {
           enabled: true,
