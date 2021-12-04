@@ -32,7 +32,7 @@ abstract contract VaultInterface is VaultStorage {
 
     function updateDonateTarget(address vaultOwner_, address donateTarget_) external virtual returns (VaultInfo memory);
 
-    function donateTo(address vaultOwner_, uint amount) external virtual returns (VaultInfo memory);
+    function donateTo(address vaultOwner_, uint amount) payable external virtual returns (VaultInfo memory);
 
-    function executeDonation(address vaultOwner_) external virtual returns (uint);
+    function executeDonation(address vaultOwner_) payable external virtual returns (uint);
 }
