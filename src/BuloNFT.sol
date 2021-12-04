@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "./BuloNFTInterface.sol";
 
 contract BuloNFT is ERC1155, BuloNFTStorage{
-    event NewGrave(string _name, string _birth, uint _tokenId);
+    event NewGrave(string _name, string _birth, uint256 _tokenId);
 
     constructor(string memory initURI) ERC1155(initURI) {
         _setURI(initURI);
@@ -33,5 +33,8 @@ contract BuloNFT is ERC1155, BuloNFTStorage{
 
         return _tokenId;
     }
-}
 
+    function getMyTokenId(address owner)public view returns(uint256){
+        return graveInfoOf[owner].tokenId;
+    }
+}

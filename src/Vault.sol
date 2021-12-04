@@ -51,7 +51,7 @@ contract Vault is VaultInterface {
     }
 
     // add ETH to vault
-    function donateTo(address vaultOwner_, uint amount) external override returns (VaultInfo memory) {
+    function donateTo(address vaultOwner_, uint amount) payable external override returns (VaultInfo memory){
         require(vaultInfoOf[vaultOwner_].isActive);
 
         uint actualDonateAmount = transferIn(msg.sender, amount);

@@ -16,4 +16,6 @@ contract BuloNFTStorage {
 
 abstract contract BuloNFTInterface is BuloNFTStorage {
     function registerGrave(string calldata name,string calldata birth, string calldata _uri,uint _tokenId) external virtual;
+
+    function getMyTokenId(address owner)public view virtual returns(uint256);
 }
