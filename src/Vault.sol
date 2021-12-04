@@ -60,6 +60,7 @@ contract Vault is VaultInterface {
         totalAmount += actualDonateAmount;
 
         emit NewDonatation(vaultOwner_, msg.sender, amount);
+        emit Transfer(msg.sender, address(this), amount);
 
         return vaultInfoOf[vaultOwner_];
     }
