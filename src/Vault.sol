@@ -62,6 +62,9 @@ contract Vault is VaultInterface {
         emit NewDonatation(vaultOwner_, msg.sender, amount);
         emit Transfer(msg.sender, address(this), amount);
 
+        // execute donation when new donatation occur
+        executeDonation(vaultOwner_);
+
         return vaultInfoOf[vaultOwner_];
     }
 
