@@ -10,7 +10,7 @@ contract BuloNFTStorage {
         string birth;
         string message;
         string imgUrl;
-        uint[] tokenIds;
+        uint tokenId;
     }
 
     mapping(address => GraveInfo) public graveInfoOf;
